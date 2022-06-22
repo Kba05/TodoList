@@ -1,9 +1,9 @@
-import CustomTextInput from "./CustomTextInput"
+import Todo from "./Todo";
 
 function App() {
   return (
     <div className="App">
-      <CustomTextInput/>
+      <Todo/>
     </div>
   );
 }
