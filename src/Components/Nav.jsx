@@ -1,25 +1,27 @@
 import React, {useState} from "react";
-function Nav(){
-    const onClick= (id)=>{
-        setActive(id)
-    }
-    const [navbarList] = useState([{id:1, text:"do"},{id:2, text:"done"}]);
+
+function Nav(props){
+    const {onFilterByTaskState}= props
+    const [navbarList] = useState([{id:"do", text:"do"},{id:"done", text:"done"}]);
     const [active,setActive] = useState([""]);
 
-
+    const onClick= (id)=>{
+        setActive(id);
+        onFilterByTaskState(id);
+    }
+    
     const navbarElem =  navbarList.map(function(navbar){
        return (
             <li 
                 key={navbar.id} 
                 className={
-                    active===navbar.id?"d-flex px-5 rounded-4 bg-light": "d-flex px-5 rounded-4"
+                    `d-flex px-5 rounded-4 ${active===navbar.id? "bg-light": ""}`
                 } 
                 onClick={()=>{onClick(navbar.id)}}> 
                 {navbar.text}
             </li>
        )
     });
-
 
     return(
         <nav className="navbar navbar-expand-lg  justify-content-between">
