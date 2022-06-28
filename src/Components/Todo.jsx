@@ -10,12 +10,27 @@ export const Todo = () => {
 
     const [ datas, setData ] = useState([...todos]); 
     const [ filtedData, setFilterData ] = useState([...datas]);
-    const [ active, setActive ] = useState(CAT_ID.home);
-    const [ status, setStatus] = useState(STATUS.done);
+    const [ active, setActive ] = useState(CAT_ID.default);
+    const [ status, setStatus] = useState(STATUS.do);
 
     useEffect(()=>{
-        // onFilterByCategory(active);
-        onFilterByTaskState(status);
+        const onFilterByTaskState = () => {
+            let massive;
+    
+            if(active === CAT_ID.default){
+                massive = [...datas];
+            } else{
+                massive = [...datas].filter(elem => elem.category === active);
+            }
+    
+            if(status === STATUS.done){
+                massive = [...massive].filter(elem => elem.isDone);  
+            } else {
+                massive = [...massive].filter(elem => !elem.isDone);  
+            };
+            setFilterData(massive);
+        }
+        onFilterByTaskState();
     },[active,status,datas]);
 
     const toDoneTask = id => {
@@ -35,34 +50,12 @@ export const Todo = () => {
         setData(prevState => [...prevState, tempNewTask]);
     };
 
-    const onFilterByCategory = category => {
-        // let  arr;
-        // if(category === CAT_ID.default){
-        //     arr = [...datas];
-        // } else{
-        //     arr = [...datas].filter(elem => elem.category === category);
-        // }
-        // setFilterData(arr);
-    };
-
-    const onFilterByTaskState = () => {
-        let massive;
-        if(status === STATUS.done){
-            massive = [...datas].filter(elem => elem.isDone && elem.category === active);  
-        } else {
-            massive = [...datas].filter(elem => !elem.isDone && elem.category === active);  
-        }
-        
-        setFilterData(massive);
-    }
-
     return(
         <div className="bg-light pt-2" style={{height:1000}}>
             <div className="container">
 
                 <header className="bg-white rounded-3 px-4">
                     <Nav 
-                        // onFilterByTaskState={onFilterByTaskState}
                         status={status}
                         onSetStatus={setStatus}/>
                 </header>
@@ -74,7 +67,6 @@ export const Todo = () => {
                             <div className="bg-white rounded-3 py-4">
                                 <Category 
                                     catList={CATEGORY} 
-                                    onFilterByCategory={onFilterByCategory}  
                                     active={active}
                                     onSetActive={setActive}/>
                             </div>
