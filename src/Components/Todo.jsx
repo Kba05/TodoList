@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState, useEffect,} from "react";
 import {NewTask} from "./NewTask";
 import {DoList} from "./DoList";
 import {Category} from "./Category";
@@ -8,9 +8,16 @@ import { CATEGORY, CAT_ID, STATUS } from "../constants/todosConstants";
 
 export const Todo = () => {
 
-    const [datas,setData] = useState([...todos]); 
-    const [filtedData,setFilterData] = useState([...datas]);
-    
+    const [ datas, setData ] = useState([...todos]); 
+    const [ filtedData, setFilterData ] = useState([...datas]);
+    const [ active, setActive ] = useState(CAT_ID.home);
+    const [ status, setStatus] = useState(STATUS.done);
+
+    useEffect(()=>{
+        // onFilterByCategory(active);
+        onFilterByTaskState(status);
+    },[active,status,datas]);
+
     const toDoneTask = id => {
         const tempArr = [...datas];
         const IndexOfToDone = tempArr.map(task => task.id).indexOf(id);
@@ -29,22 +36,23 @@ export const Todo = () => {
     };
 
     const onFilterByCategory = category => {
-        let  arr;
-        if(category === CAT_ID.default){
-            arr = [...datas];
-        } else{
-            arr = [...datas].filter(elem => elem.category === category);
-        }
-        setFilterData(arr);
+        // let  arr;
+        // if(category === CAT_ID.default){
+        //     arr = [...datas];
+        // } else{
+        //     arr = [...datas].filter(elem => elem.category === category);
+        // }
+        // setFilterData(arr);
     };
 
-    const onFilterByTaskState = taskState => {
+    const onFilterByTaskState = () => {
         let massive;
-        if(taskState === STATUS.done){
-            massive = [...datas].filter(elem => elem.isDone);  
-        }else{
-            massive = [...datas].filter(elem => !elem.isDone);  
+        if(status === STATUS.done){
+            massive = [...datas].filter(elem => elem.isDone && elem.category === active);  
+        } else {
+            massive = [...datas].filter(elem => !elem.isDone && elem.category === active);  
         }
+        
         setFilterData(massive);
     }
 
@@ -53,7 +61,10 @@ export const Todo = () => {
             <div className="container">
 
                 <header className="bg-white rounded-3 px-4">
-                    <Nav onFilterByTaskState={onFilterByTaskState}/>
+                    <Nav 
+                        // onFilterByTaskState={onFilterByTaskState}
+                        status={status}
+                        onSetStatus={setStatus}/>
                 </header>
 
                 <main className="my-2">
@@ -61,7 +72,11 @@ export const Todo = () => {
 
                         <div className="col-3">
                             <div className="bg-white rounded-3 py-4">
-                                <Category catList={CATEGORY} onFilterByCategory={onFilterByCategory} />
+                                <Category 
+                                    catList={CATEGORY} 
+                                    onFilterByCategory={onFilterByCategory}  
+                                    active={active}
+                                    onSetActive={setActive}/>
                             </div>
                         </div>
 

@@ -1,25 +1,10 @@
-import React, {useState} from "react"
-import { CAT_ID } from "../constants/todosConstants";
+import React from "react"
 
 export const Category = props =>{
-    const { catList, toAddNewCat, onFilterByCategory } = props
-    const [ active, setActive ] = useState(CAT_ID.default);
-    const [ newCatId, setNewCatId ] = useState();
-    const [ newCatText, setNewCatText ] = useState();
-
-    const onClickAddCat = e => {
-        e.preventDefault();
-        const newcat={
-            id:newCatId,
-            text:newCatText
-        }
-        toAddNewCat(newcat);
-        setNewCatId("");
-        setNewCatText("");
-    }
+    const { catList, onFilterByCategory, active, onSetActive } = props
 
     const onClickToCategory = id =>{
-        setActive(id);
+        onSetActive(id);
         onFilterByCategory(id);
     }
 
@@ -38,11 +23,6 @@ export const Category = props =>{
             <ul>
                 {catElem}
             </ul>
-            <div className="mx-4">
-                <button className="btn btn-outline-success" onClick={onClickAddCat}>+ Add Categoty</button>
-                <input type="text" value={newCatId} onChange={(e)=>setNewCatId(e.target.value)} />
-                <input type="text" value={newCatText} onChange={(e)=>setNewCatText(e.target.value)} />
-            </div>
         </>
 
     )

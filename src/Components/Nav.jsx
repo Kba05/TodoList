@@ -1,23 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import { TASK_STATUS } from "../constants/todosConstants";
 
 export const Nav = props => {
-    const {onFilterByTaskState} = props
-    const [active,setActive] = useState();
-
+    const { status, onSetStatus} = props
+    
     const onClick = id => {
-        setActive(id);
-        onFilterByTaskState(id);
+        onSetStatus(id);
     }
     
-    const statusElem = [...TASK_STATUS].map(status => (
+    const statusElem = [...TASK_STATUS].map(stat => (
             <li 
-                key={status.id} 
+                key={stat.id} 
                 className={
-                    `d-flex px-5 rounded-4 ${active===status.id? "bg-light": ""}`
+                    `d-flex px-5 rounded-4 ${status===stat.id? "bg-light": ""}`
                 } 
-                onClick={()=>onClick(status.id)}> 
-                {status.text}
+                onClick={()=>onClick(stat.id)}> 
+                {stat.text}
             </li>
        )
     );

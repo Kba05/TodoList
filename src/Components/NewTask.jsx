@@ -3,7 +3,7 @@ import { CAT_ID } from "../constants/todosConstants";
 
 export const NewTask =  props => {
     const { catList, onAddNewTask } = props;
-    const [ InputText, setInputText ] = useState();
+    const [ InputText, setInputText ] = useState('');
     const [ CategoryFromSelect, setCategory ] = useState();
 
     const onType = e => {
@@ -28,7 +28,7 @@ export const NewTask =  props => {
 
     return(
         <div className="input-group mb-3">
-            <input  className="form-control" type="text" placeholder="Recipient's username" onChange={onType} value={InputText}/>
+            <input  className="form-control" type="text" placeholder="Task" onChange={onType} value={InputText}/>
             <select className="form-select" value={CategoryFromSelect} onChange={onSelect}>
                 {selectItem}
             </select>
