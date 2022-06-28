@@ -1,11 +1,7 @@
-import Todo from "./Components/Todo";
+import {Todo} from "./Components/Todo"
 
-function App() {
-  return (
-    <div className="App">
-      <Todo/>
-    </div>
-  );
-}
-
-export default App;
+export const App = () => (
+  <div className="App">
+    <Todo/>
+  </div>
+);

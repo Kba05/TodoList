@@ -1,30 +1,28 @@
 import React, { useState } from "react";
+import { CAT_ID } from "../constants/todosConstants";
 
-function NewTask(props){
-    const {catList,onAddNewTask}=props;
+export const NewTask =  props => {
+    const { catList, onAddNewTask } = props;
+    const [ InputText, setInputText ] = useState();
+    const [ CategoryFromSelect, setCategory ] = useState();
 
-    const [InputText,setInputText]=useState('');
-
-    const [CategoryFromSelect,setCategory] = useState('');
-
-    const onType = (e)=>{
+    const onType = e => {
         setInputText(e.target.value)
     }
 
-    const onSelect = (e)=>{
+    const onSelect = e => {
         setCategory(e.target.value)
     }
 
-    const onClickAddNewTask = ()=>{
+    const onClickAddNewTask = () => {
         if(InputText){
-            onAddNewTask(InputText,CategoryFromSelect);
+            onAddNewTask( InputText, CategoryFromSelect );
             setInputText("");
-            setCategory("default");
+            setCategory(CAT_ID.default);
         }
-        return
     }
 
-    const selectItem = catList.map(function(item){
+    const selectItem = [...catList].map(item => {
        return <option key={item.id} value={item.id} >{item.text}</option>
     })
 
@@ -38,4 +36,3 @@ function NewTask(props){
         </div>
     )
 }
-export default NewTask;

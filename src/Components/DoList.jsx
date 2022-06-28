@@ -1,11 +1,8 @@
 import React from "react";
 
-function DoList(props){
-
-    const {datas,toDoneTask}=props;
-
-    const elemOfTodo=datas.map(function(elem){
-        return(
+export const DoList = props => {
+    const {datas,toDoneTask} = props;
+    const elemOfTodo = [...datas].map(elem => (
             <li key={elem.id} className="list-group-item"> 
                 <input 
                     className="form-check-input me-1" 
@@ -19,7 +16,7 @@ function DoList(props){
                 </p>
             </li>
         )
-    })
+    )
 
     return (
         <ul className="list-group">
@@ -27,5 +24,3 @@ function DoList(props){
         </ul>
     )
 }
-
-export default DoList;

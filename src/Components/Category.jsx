@@ -1,12 +1,13 @@
 import React, {useState} from "react"
+import { CAT_ID } from "../constants/todosConstants";
 
-function Category(props){
-    const {catList,toAddNewCat,onFilterByCategory} = props
-    const [active,setActive] = useState("home");
-    const [newCatId, setNewCatId] = useState('');
-    const [newCatText, setNewCatText] = useState('');
+export const Category = props =>{
+    const { catList, toAddNewCat, onFilterByCategory } = props
+    const [ active, setActive ] = useState(CAT_ID.default);
+    const [ newCatId, setNewCatId ] = useState();
+    const [ newCatText, setNewCatText ] = useState();
 
-    const onClickAddCat=(e)=>{
+    const onClickAddCat = e => {
         e.preventDefault();
         const newcat={
             id:newCatId,
@@ -17,22 +18,20 @@ function Category(props){
         setNewCatText("");
     }
 
-    const onClickToCategory = (id)=>{
+    const onClickToCategory = id =>{
         setActive(id);
         onFilterByCategory(id);
     }
 
-    const catElem = catList.map( (cat) => {
-        return(
+    const catElem = [...catList].map( cat => (
             <li 
                 key={cat.id} 
                 className={`d-block my-3 py-2 px-2 rounded-start ${active === cat.id? 'bg-light': ""}`} 
-                onClick={()=>onClickToCategory(cat.id)}>
+                onClick={ () => onClickToCategory(cat.id) }>
                 {cat.id==="default" ? "Все" : cat.text}
             </li>
         )
-
-    })
+    )
     
     return(
         <>
@@ -48,5 +47,3 @@ function Category(props){
 
     )
 }
-
-export default Category

@@ -1,27 +1,26 @@
 import React, {useState} from "react";
+import { TASK_STATUS } from "../constants/todosConstants";
 
-function Nav(props){
-    const {onFilterByTaskState}= props
-    const [navbarList] = useState([{id:"do", text:"do"},{id:"done", text:"done"}]);
-    const [active,setActive] = useState([""]);
+export const Nav = props => {
+    const {onFilterByTaskState} = props
+    const [active,setActive] = useState();
 
-    const onClick= (id)=>{
+    const onClick = id => {
         setActive(id);
         onFilterByTaskState(id);
     }
     
-    const navbarElem =  navbarList.map(function(navbar){
-       return (
+    const statusElem = [...TASK_STATUS].map(status => (
             <li 
-                key={navbar.id} 
+                key={status.id} 
                 className={
-                    `d-flex px-5 rounded-4 ${active===navbar.id? "bg-light": ""}`
+                    `d-flex px-5 rounded-4 ${active===status.id? "bg-light": ""}`
                 } 
-                onClick={()=>{onClick(navbar.id)}}> 
-                {navbar.text}
+                onClick={()=>onClick(status.id)}> 
+                {status.text}
             </li>
        )
-    });
+    );
 
     return(
         <nav className="navbar navbar-expand-lg  justify-content-between">
@@ -30,10 +29,9 @@ function Nav(props){
             </div>
             <div className="navbar-nav">
                 <ul className="d-flex mx-0 my-0">
-                    {navbarElem}
+                    {statusElem}
                 </ul>
             </div>
         </nav>
     )
-}
-export default Nav;
+};

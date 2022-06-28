@@ -1,86 +1,51 @@
 import React, { useState } from "react";
-import NewTask from "./NewTask";
-import DoList from "./DoList";
-import Category from "./Category";
-import Nav from "./Nav";
+import {NewTask} from "./NewTask";
+import {DoList} from "./DoList";
+import {Category} from "./Category";
+import {Nav} from "./Nav"
+import { todos } from "../__mocks__/todos";
+import { CATEGORY, CAT_ID, STATUS } from "../constants/todosConstants";
 
-function Todo(){
+export const Todo = () => {
 
-    const [datas,setData] = useState([
-        {
-            id:1,
-            text:"clean up at home",
-            category: "home",
-            isDone:true
-        },
-        {
-            id:2,
-            text:"go to univer",
-            category: "univer",
-            isDone:false
-        },
-        {
-            id:3,
-            text:"Do tasks",
-            category: "work",
-            isDone:false
-        }
-    ]);
-    const toDoneTask = (id)=>{
-        const IndexOfToDone = datas.map(task=> task.id).indexOf(id);
-        datas[IndexOfToDone].isDone = !datas[IndexOfToDone].isDone;
-        setData([...datas]);
-    }
-    const onAddNewTask = (text,categoty)=>{
-        const tempNewTask ={
-            id: new Date().toDateString(),
-            text:text,
-            category:categoty,
-            isDone:false
+    const [datas,setData] = useState([...todos]); 
+    const [filtedData,setFilterData] = useState([...datas]);
+    
+    const toDoneTask = id => {
+        const tempArr = [...datas];
+        const IndexOfToDone = tempArr.map(task => task.id).indexOf(id);
+        tempArr[IndexOfToDone].isDone = !tempArr[IndexOfToDone].isDone;
+        setData(tempArr);
+    };
+
+    const onAddNewTask = (text,category) => {
+        const tempNewTask = {
+            id: Math.floor(Math.random( ) * (999+1)),
+            text,
+            category,
+            isDone : false
         };
-        setData([...datas,tempNewTask]);
-    }
+        setData(prevState => [...prevState, tempNewTask]);
+    };
 
-
-    const[catList,setNewCat] = useState([
-        {id:"default",text:"Выберите категорию"},
-        {id:"home", text:"Home Task"},
-        {id:"univer", text:"University tasks"},
-        {id:"work", text:"Work tasks"},
-
-    ]);
-    const toAddNewCat = (newcat) =>{
-        setNewCat([...catList,newcat])
-    }
-
-
-
-    const onFilterByCategory= (category)=>{
+    const onFilterByCategory = category => {
         let  arr;
-        if(category==="default"){
-            arr=datas;
+        if(category === CAT_ID.default){
+            arr = [...datas];
         } else{
-            arr = datas.filter(function(elem){
-                return elem.category === category
-            });
+            arr = [...datas].filter(elem => elem.category === category);
         }
-        setFilterData(arr)
+        setFilterData(arr);
+    };
 
-    }
-    const [filtedData,setFilterData]=useState([...datas]);
-
-    const onFilterByTaskState =(taskState)=>{
+    const onFilterByTaskState = taskState => {
         let massive;
-        if(taskState==="done"){
-            massive = datas.filter(function(elem){
-                return elem.isDone
-            });  
+        if(taskState === STATUS.done){
+            massive = [...datas].filter(elem => elem.isDone);  
         }else{
-            massive = datas.filter(function(elem){
-                return !elem.isDone
-            });  
+            massive = [...datas].filter(elem => !elem.isDone);  
         }
-        setFilterData(massive)
+        setFilterData(massive);
     }
 
     return(
@@ -96,13 +61,13 @@ function Todo(){
 
                         <div className="col-3">
                             <div className="bg-white rounded-3 py-4">
-                                <Category catList={catList} toAddNewCat={toAddNewCat} onFilterByCategory={onFilterByCategory} />
+                                <Category catList={CATEGORY} onFilterByCategory={onFilterByCategory} />
                             </div>
                         </div>
 
                         <div className="col-9">
                             <div className="bg-white rounded-2 px-4 py-4">
-                                <NewTask catList={catList} onAddNewTask={onAddNewTask}/>
+                                <NewTask catList={CATEGORY} onAddNewTask={onAddNewTask}/>
                                 <DoList datas={filtedData} toDoneTask={toDoneTask}/>
                             </div>
                         </div>
@@ -115,4 +80,3 @@ function Todo(){
         </div>
     )
 }
-export default Todo;
