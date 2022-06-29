@@ -9,11 +9,11 @@ export const CAT_ID = {
 export const CATEGORY = [
     {
         id : CAT_ID.default,
-        text : "Выберите категорию"
+        text : "Choose category for task"
     },
     {
         id : CAT_ID.home, 
-        text : "Home Task"
+        text : "Home Tasks"
     },
     {
         id : CAT_ID.univer, 

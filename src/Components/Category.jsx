@@ -8,7 +8,7 @@ export const Category = props =>{
                 key={cat.id} 
                 className={`d-block my-3 py-2 px-2 rounded-start ${active === cat.id? 'bg-light': ""}`} 
                 onClick={ () => onSetActive(cat.id) }>
-                {cat.id==="default" ? "Все" : cat.text}
+                {cat.id==="default" ? "All of Tasks" : cat.text}
             </li>
         )
     )

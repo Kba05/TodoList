@@ -1,8 +1,8 @@
 import React from "react";
 
 export const DoList = props => {
-    const {datas,toDoneTask} = props;
-    const elemOfTodo = [...datas].map(elem => (
+    const {tasks,toDoneTask} = props;
+    const elemOfTodo = [...tasks].map(elem => (
             <li key={elem.id} className="list-group-item"> 
                 <input 
                     className="form-check-input me-1" 
