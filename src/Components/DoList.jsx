@@ -1,7 +1,7 @@
 import React from "react";
 
 export const DoList = props => {
-    const {tasks,toDoneTask,onDeleteTask} = props;
+    const {tasks, toDoneTask, onDeleteTask} = props;
     const elemOfTodo = [...tasks].map(elem => (
             <li key={elem.id} className="list-group-item"> 
                 <input 
@@ -10,17 +10,21 @@ export const DoList = props => {
                     onChange={ ()=>{toDoneTask(elem.id)} } 
                     checked={elem.isDone}/>
 
-                <p className={` d-inline ${elem.isDone? "text-decoration-line-through" : ""} `}>
+                <p className={` d-inline ${elem.isDone ? "text-decoration-line-through" : ""} `}>
                     {elem.text}
                 </p>
                 <p className="d-inline float-end mx-0 my-0" onClick={()=>onDeleteTask(elem.id)}>X</p>
             </li>
         )
-    )
+    );
 
     return (
         <ul className="list-group">
-            {elemOfTodo}
+            {elemOfTodo.length === 0 
+            ? 
+            <div className="text-center my-5">Upss! Now you don't have tasks</div> 
+            : 
+            elemOfTodo }
         </ul>
     )
 }

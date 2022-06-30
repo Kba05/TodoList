@@ -2,17 +2,15 @@ import React from "react";
 import { TASK_STATUS } from "../constants/todosConstants";
 
 export const Nav = props => {
-    const { status, onSetStatus, setModalVisible} = props
-    
+    const { status, onSetStatus, setModalVisible} = props;
     const onClick = id => {
         onSetStatus(id);
-    }
-    
+    };
     const statusElem = [...TASK_STATUS].map(stat => (
             <li 
                 key={stat.id} 
                 className={
-                    `d-block px-5 rounded-4 ${status===stat.id? "bg-light": ""}`
+                    `d-block px-5 rounded-4 ${status === stat.id ? "bg-light" : ""}`
                 } 
                 onClick={()=>onClick(stat.id)}> 
                     {stat.text}

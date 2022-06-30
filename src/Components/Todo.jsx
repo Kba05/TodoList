@@ -20,7 +20,7 @@ export const Todo = () => {
         } else{
             return [...datas].filter(elem => elem.category === active);
         }
-    },[active,datas])
+    },[active,datas]);
 
     const filteredByCategoryAndStatus = useMemo(() => {
         if(status === STATUS.done){
@@ -40,7 +40,7 @@ export const Todo = () => {
     const onDeleteTask = id =>{
         const newArr = [...datas].filter(elem => elem.id !== id);
         setData(newArr);
-    }
+    };
 
     const onAddNewTask = (text,category) => {
         const tempNewTask = {

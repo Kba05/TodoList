@@ -18,13 +18,13 @@ export const NewTask =  props => {
             setInputText("");
             setCategory(CAT_ID.default);
         }
-    }
+    };
 
     const selectItem = [...catList].map(item => {
-       return <option disabled={item.id===CAT_ID.default} key={item.id} value={item.id}>
+       return <option disabled={item.id === CAT_ID.default} key={item.id} value={item.id}>
                 {item.text}
               </option>
-    })
+    });
 
     return(
         <>
@@ -36,8 +36,8 @@ export const NewTask =  props => {
                 </select>
                 <button className="btn btn-outline-success float-end" type="button" onClick={onClickAddNewTask}>Add</button>
             </div>
-            <div className="py-3">{emptyInput ? "- Please fill input with your task":""}</div> 
-            <div>{defaultCategory ?"- Please choose category for your task":""}</div>
-        </>
+            <div className="py-3">{emptyInput ? "- Please fill input with your task" : ""}</div> 
+            <div>{defaultCategory ? "- Please choose category for your task" : ""}</div>
+        </> 
     )
 }
