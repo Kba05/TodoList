@@ -1,8 +1,8 @@
-import React, {  useState, useMemo,} from "react";
-import {NewTask} from "./NewTask";
-import {DoList} from "./DoList";
-import {Category} from "./Category";
-import {Nav} from "./Nav"
+import React, {  useState, useMemo } from "react";
+import { NewTask } from "./NewTask";
+import { DoList } from "./DoList";
+import { Category } from "./Category";
+import { Nav } from "./Nav"
 import { Modal } from "./Modal/Modal";
 import { todos } from "../__mocks__/todos";
 import { CATEGORY, CAT_ID, STATUS } from "../constants/todosConstants";
@@ -37,6 +37,11 @@ export const Todo = () => {
         setData(tempArr);
     };
 
+    const onDeleteTask = id =>{
+        const newArr = [...datas].filter(elem => elem.id !== id);
+        setData(newArr);
+    }
+
     const onAddNewTask = (text,category) => {
         const tempNewTask = {
             id: Math.floor(Math.random( ) * (999+1)),
@@ -53,7 +58,7 @@ export const Todo = () => {
     return(
         <>
             <Modal visible={modalVisible} onClose={setModalVisible}>
-                <NewTask catList={CATEGORY} onAddNewTask={onAddNewTask} onClose={setModalVisible}/> 
+                <NewTask catList={CATEGORY} onAddNewTask={onAddNewTask}/> 
             </Modal>
 
             <div className="bg-light pt-2" style={{height:1000}}>
@@ -81,7 +86,7 @@ export const Todo = () => {
                             <div className="col-9">
                                 <div className="bg-white rounded-2 px-4 py-4">
                                     <p>List of tasks:</p>
-                                    <DoList tasks={filteredByCategoryAndStatus} toDoneTask={toDoneTask}/>
+                                    <DoList tasks={filteredByCategoryAndStatus} toDoneTask={toDoneTask} onDeleteTask={onDeleteTask}/>
                                 </div>
                             </div>
 
