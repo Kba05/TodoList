@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../Contexts/Context";
+
 
 export const DoList = props => {
+    const theme = useContext(ThemeContext);
     const {tasks, toDoneTask, onDeleteTask} = props;
     const elemOfTodo = [...tasks].map(elem => (
-            <li key={elem.id} className="list-group-item"> 
+            <li key={elem.id} className={`list-group-item ${theme.background} ${theme.textColor}`}> 
                 <input 
-                    className="form-check-input me-1" 
+                    className={`form-check-input me-1`} 
                     type="checkbox" 
                     onChange={ ()=>{toDoneTask(elem.id)} } 
                     checked={elem.isDone}/>
 
-                <p className={` d-inline ${elem.isDone ? "text-decoration-line-through" : ""} `}>
+                <p className={`d-inline ${theme.textColor} ${elem.isDone ? "text-decoration-line-through" : ""} `}>
                     {elem.text}
                 </p>
                 <p className="d-inline float-end mx-0 my-0" onClick={()=>onDeleteTask(elem.id)}>X</p>

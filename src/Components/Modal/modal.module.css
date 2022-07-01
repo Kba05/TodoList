@@ -11,7 +11,7 @@
 
 .myModal__content{
     padding: 25px;
-    background: rgb(255, 255, 255);
+    /* background: rgb(255, 255, 255); */
     border-radius: 15px;
     min-width: 350px;
     min-height: 350px;

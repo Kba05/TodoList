@@ -44,3 +44,22 @@ export const TASK_STATUS =[
         text : "done"
     }
 ]// Task Status>>>>>>>>>>>>>>
+
+// <<<<<<<<<<<<<<Themes
+export const THEMES = {
+    light:{
+        background : "bg-light",
+        cardBackground:"bg-white",
+        textColor : "text-dark",
+        border: "border-light",
+        btnColor:"btn-light"
+    },
+
+    dark:{
+        background : "bg-dark",
+        cardBackground:"bg-secondary",
+        textColor :  "text-white",
+        border: "border-dark",
+        btnColor:"btn-dark"
+    }
+}// Themes>>>>>>>>>>>>>>
