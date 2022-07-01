@@ -15,7 +15,7 @@ export const Modal = (props) => {
     return (
         <div className={rootClasses.join(" ")} onClick={()=>onClose(false)}>
             <div className={childrenClasses.join(" ")} onClick={(e)=>e.stopPropagation()}>
-                <button className="btn float-end" type="button" onClick={() => onClose(false)}>X</button>
+                <button className={`btn float-end ${theme.btnColor}`} type="button" onClick={() => onClose(false)}>X</button>
                 {children}
             </div>        
         </div>
